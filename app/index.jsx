@@ -9,7 +9,7 @@ export default function App() {
       <StatusBar style="auto" />
       <Link href="/profile" style={{ color: "blue" }}>
         Go to{" "}
-      </Link> 
+      </Link>
     </View>
   );
 }

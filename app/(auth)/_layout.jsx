@@ -10,5 +10,3 @@ const AuthLayout = () => {
 }
 
 export default AuthLayout
-
-const styles = StyleSheet.create({})
