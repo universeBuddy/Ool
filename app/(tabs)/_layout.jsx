@@ -11,6 +11,7 @@ const TabIcon = ({ icon, color, name, focused }) => {
         resizeMode="contain"
         tintColor={color}
         className="w-5 h-5"
+        
       />
       <Text
         className={`${focused ? "font-psemibold" : "font-pregular"} text-xs` }style={{color:color}}
@@ -98,4 +99,4 @@ const TabsLayout = () => {
   );
 };
 
-export default TabsLayout;
+export default TabsLayout; 
