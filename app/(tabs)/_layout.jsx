@@ -10,10 +10,10 @@ const TabIcon = ({ icon, color, name, focused }) => {
         source={icon}
         resizeMode="contain"
         tintColor={color}
-        className="w-6 h-6"
+        className="w-5 h-5"
       />
       <Text
-        className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
+        className={`${focused ? "font-psemibold" : "font-pregular"} text-xs` }style={{color:color}}
       >
         {name}
       </Text>
@@ -23,7 +23,16 @@ const TabIcon = ({ icon, color, name, focused }) => {
 const TabsLayout = () => {
   return (
     <>
-      <Tabs screenOptions={{ tabBarShowLabel: false }}>
+      <Tabs screenOptions={{ tabBarShowLabel: false, 
+        tabBarActiveTintColor:'#FFA001',
+        tabBarInactiveTintColor:'#CDCDE0',
+        tabBarStyle:{
+          backgroundColor:'#161622',
+          borderTopWidth:1,
+          borderTopColor:'#232533',
+          height:60
+        }
+      }}>
         <Tabs.Screen
           name="home"
           options={{
@@ -40,45 +49,45 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="home"
+          name="bookmark"
           options={{
-            title: "Home",
+            title: "Bookmark",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.home}
+                icon={icons.bookmark}
                 color={color}
-                name="Home"
+                name="Bookmark"
                 focused={focused}
               />
             ),
           }}
         />
         <Tabs.Screen
-          name="home"
+          name="create"
           options={{
-            title: "Home",
+            title: "Create",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.home}
+                icon={icons.plus}
                 color={color}
-                name="Home"
+                name="Create"
                 focused={focused}
               />
             ),
           }}
         />
         <Tabs.Screen
-          name="home"
+          name="profile"
           options={{
-            title: "Home",
+            title: "Profile",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.home}
+                icon={icons.profile}
                 color={color}
-                name="Home"
+                name="Profile"
                 focused={focused}
               />
             ),
