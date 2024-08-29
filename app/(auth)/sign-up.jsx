@@ -1,30 +1,35 @@
-import { Image, ScrollView, Text, View } from "react-native";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "../../components/FormField";
 import { useState } from "react";
 import { images } from "../../constants";
 import CustomButtom from "../../components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { createUser } from "../../lib/appwrite";
-
-
-
-
-
-
-
-
 
 const SignUp = () => {
   const [form, setForm] = useState({
-    username:"",
+    username: "",
     email: "",
     password: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {
-    createUser();
+  const submit = async () => {
+    if (!form.username || !form.email || !form.password) {
+      Alert.alert("Error", "Please Fill in all the Fields ");
+    }
+    setIsSubmitting(true);
+
+    try {
+      const result = await createUser(form.email,form.password,form.username);
+
+      router.replace('/home')
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -67,7 +72,7 @@ const SignUp = () => {
           />
           <View className="justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">
-             already have account{" "}
+              already have account{" "}
             </Text>
             <Link
               href="/sign-in"
