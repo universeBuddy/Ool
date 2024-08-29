@@ -3,11 +3,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "../constants";
 import CustomButton from "../components/CustomButton";
+import { StatusBar } from "expo-status-bar";
+import { router } from "expo-router";
 export default function App() {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
-        <View className="w-full justify-center items-center h-full ">
+        <View className="w-full justify-center items-center min-h-[100vh]  ">
           <Image
             source={images.logo}
             className="w[120px] h-[60px]"
@@ -43,7 +45,7 @@ export default function App() {
           />
         </View>
       </ScrollView>
-      {/* <StatusBar backgroundColor="#161622" style="light" /> */}
+      <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
   );
 }
