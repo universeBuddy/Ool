@@ -5,6 +5,16 @@ import { useState } from "react";
 import { images } from "../../constants";
 import CustomButtom from "../../components/CustomButton";
 import { Link } from "expo-router";
+import { createUser } from "../../lib/appwrite";
+
+
+
+
+
+
+
+
+
 const SignUp = () => {
   const [form, setForm] = useState({
     username:"",
@@ -13,7 +23,9 @@ const SignUp = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {};
+  const submit = () => {
+    createUser();
+  };
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -49,7 +61,7 @@ const SignUp = () => {
           />
           <CustomButtom
             title="Sign Up"
-            handdlePress={submit}
+            handlePress={submit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
           />
