@@ -1,5 +1,5 @@
-import { View, Text, Image } from "react-native";
-import React from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import { icons } from "../constants";
 const VideoCard = ({
   video: {
@@ -9,6 +9,9 @@ const VideoCard = ({
     creator: { username, avatar },
   },
 }) => {
+
+
+  const [play, setPlay] = useState(false)
   return (
     <View className="flex-col items-center px-4 mb-14">
       <View className="flex-row gap-3 items-start">
@@ -41,6 +44,15 @@ const VideoCard = ({
           className="w-5 h-5" resizeMode="contain" />
         </View>
       </View>
+
+ {
+  play ? (<Text></Text>) :(
+    <TouchableOpacity>
+      <Image source={{uri:thumbnail}}
+      className="w-full" />
+    </TouchableOpacity>
+  )
+ }
     </View>
   );
 };
