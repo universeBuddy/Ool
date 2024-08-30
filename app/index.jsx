@@ -4,15 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../constants";
 import CustomButton from "../components/CustomButton";
 import { StatusBar } from "expo-status-bar";
-import { Redirect, router } from "expo-router";
-import { useGlobalContext } from "../context/GlobalProvider";
-
-export const App = () => {
-
-
-  const { isLoading, isLoggedIn } = useGlobalContext();
-  if (!isLoading && isLoggedIn) return <Redirect href="/home" />;
-
+import { router } from "expo-router";
+export default function App() {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
@@ -55,4 +48,4 @@ export const App = () => {
       <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
   );
-};
+}
