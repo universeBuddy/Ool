@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   SafeAreaView,
   ScrollView,
@@ -10,7 +11,11 @@ import {
 import React, { useState } from "react";
 import FormField from "../../components/FormField";
 import { icons } from "../../constants";
-import { ResizeMode } from "expo-av";
+import CustomButton from "../../components/CustomButton";
+import { ResizeMode, Video } from "expo-av";
+import * as DocumentPicker from "expo-document-picker";
+import { router } from "expo-router";
+
 const Create = () => {
   const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({
@@ -19,6 +24,53 @@ const Create = () => {
     thumbnail: null,
     prompt: "",
   });
+
+  const submit = () => {
+    if (!form.prompt || !form.title || !form.thumbnail || !form.video) {
+      return Alert.alert("Please fill in all the fields");
+    }
+    setUploading(true);
+    try {
+
+
+      
+      Alert.alert("Success", "Post Upload Successfully");
+      router.push("/home");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setForm({
+        title: "",
+        video: null,
+        thumbnail: null,
+        prompt: "",
+      });
+      setUploading(false);
+    }
+  };
+
+  const openPicker = async (selectType) => {
+    const result = await DocumentPicker.getDocumentAsync({
+      type:
+        selectType === "image"
+          ? ["image/png", "image/jpg", "image/jpeg"]
+          : ["video/mp4", "video/gif"],
+    });
+
+    if (!result.canceled) {
+      if (selectType === "image") {
+        setForm({ ...form, thumbnail: result.assets[0] });
+      }
+      if (selectType === "video") {
+        setForm({ ...form, video: result.assets[0] });
+      }
+    } else {
+      setTimeout(() => {
+        Alert.alert("Document picked", JSON.stringify(result, null, 2));
+      }, 100);
+    }
+  };
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView className="px-4 my-12">
@@ -60,7 +112,7 @@ const Create = () => {
             )}
           </TouchableOpacity>
         </View>
-        <View className="mt-7 space-y-2">
+        <View className="mt-5 space-y-2">
           <Text className="text-base text-gray-100 font-pmedium">
             Thumbnail Image
           </Text>
@@ -87,6 +139,20 @@ const Create = () => {
             )}
           </TouchableOpacity>
         </View>
+        <FormField
+          title="AI Prompt"
+          value={form.prompt}
+          placeholder="The AI prompt of your video...."
+          handleChangeText={(e) => setForm({ ...form, prompt: e })}
+          otherStyles="mt-7"
+        />
+
+        <CustomButton
+          title="Submit & Publish"
+          handlePress={submit}
+          containerStyles="mt-7"
+          isLoading={uploading}
+        />
       </ScrollView>
     </SafeAreaView>
   );
