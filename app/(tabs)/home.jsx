@@ -12,13 +12,14 @@ import { images } from "../../constants";
 import SerachInput from "../../components/SearchInput";
 import Tranding from "../../components/Tranding";
 import EmptyState from "../../components/EmptyState";
-import { getAllPosts } from "../../lib/appwrite";
+import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
 import useAppWrite from "../../lib/useAppwrite";
 import VideoCard from "../../components/VideoCard";
 
 const Home = () => {
  
 const {data:posts,refetch} = useAppWrite(getAllPosts);
+const {data:latestPosts} = useAppWrite(getLatestPosts);
 
   
   
@@ -63,7 +64,7 @@ const {data:posts,refetch} = useAppWrite(getAllPosts);
               <Text className="text-gray-100 text-lg font-pregular ">
                 Latest Video
               </Text>
-              <Tranding posts={[{ id: 1 }, { id: 2 }, { id: 3 }] ?? []} />
+              <Tranding posts={latestPosts ?? []} />
             </View>
           </View>
         )}
