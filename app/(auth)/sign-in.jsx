@@ -6,8 +6,10 @@ import { images } from "../../constants";
 import CustomButtom from "../../components/CustomButton";
 import { Link, router } from "expo-router";
 import { getCurrentUser, signIn } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
+  const {setUser , setIsLoggedIn}  = useGlobalContext();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -23,6 +25,11 @@ const SignIn = () => {
     try {
       await signIn(form.email, form.password);
       
+
+      const result = await getCurrentUser();
+      setUser(result)
+        setIsLoggedIn(true);
+      
       router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
@@ -34,7 +41,7 @@ const SignIn = () => {
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
         <View className="w-full justify-center h-full min-h-[83vh] px-4 my-5">
-          <Image
+          <Image  
             source={images.logo}
             resizeMode="contain"
             className="w-[115px] h-[35px]"
